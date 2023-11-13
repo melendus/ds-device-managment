@@ -4,6 +4,9 @@ export class Device {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ default: '' })
+  name: string;
+
   @Column({ nullable: true })
   description: string;
 

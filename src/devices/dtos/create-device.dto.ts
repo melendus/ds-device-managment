@@ -13,4 +13,7 @@ export class CreateDeviceDto {
 
   @IsNumber()
   userId?: number;
+
+  @IsString()
+  name?: string;
 }
