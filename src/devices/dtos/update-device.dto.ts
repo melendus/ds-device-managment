@@ -17,4 +17,8 @@ export class UpdateDeviceDto extends CreateDeviceDto {
   @IsNumber()
   @IsOptional()
   userId?: number;
+
+  @IsNumber()
+  @IsOptional()
+  name?: string;
 }

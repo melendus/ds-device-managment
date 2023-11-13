@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateDeviceDto } from './dtos/create-device.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Device } from './entities/device.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { UpdateDeviceDto } from './dtos/update-device.dto';
 
 @Injectable()
@@ -31,5 +31,24 @@ export class DevicesService {
 
   async remove(id: number) {
     await this.deviceRepository.delete(id);
+  }
+
+  async removeUserDevices(userId: string) {
+    const foundDevices = await this.deviceRepository.findBy({
+      userId: +userId,
+    });
+
+    foundDevices.forEach((device) => {
+      device.userId = null;
+      this.deviceRepository.save(device);
+    });
+
+    return foundDevices;
+  }
+
+  async getAllUserDevices(userId: string) {
+    return await this.deviceRepository.findBy({
+      userId: +userId,
+    });
   }
 }
